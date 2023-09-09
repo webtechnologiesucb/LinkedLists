@@ -1,5 +1,6 @@
 /*
-5. Desarrollar un menu de opciones para listas enlazadas simples en Java que permita uso de parametros args[] del main, que considere las siguientes operaciones:
+5. Desarrollar un menu de opciones para listas enlazadas simples en Java que permita uso de parametros args[] del main,
+que considere las siguientes operaciones:
 java ListaEnlazadaSimpleMenu agregar_inicio 5
 java ListaEnlazadaSimpleMenu agregar_final 10
 java ListaEnlazadaSimpleMenu agregar_posicion 1 7
@@ -23,7 +24,7 @@ public class ListaEnlazadaSimpleMenu {
         lista.agregarAlFinal(5);
 
         if (args.length == 0) {
-            System.out.println("Uso: java ListaEnlazadaSimple [comando] [argumento]");
+            System.out.println("Uso: java ListaEnlazadaSimpleMenu [comando] [argumento]");
             return;
         }
         // obtenemos el comando del primer argumento
@@ -36,7 +37,10 @@ public class ListaEnlazadaSimpleMenu {
                     return;
                 }
                 int valorInicio = Integer.parseInt(args[1]);
+                System.out.println("Valores previos:");
+                lista.mostrar();
                 lista.agregarAlInicio(valorInicio); // agregamos al inicio el valor
+                System.out.println("Lista Final:");
                 lista.mostrar(); // mostramos los resultados
                 break;
 
@@ -46,6 +50,9 @@ public class ListaEnlazadaSimpleMenu {
                     return;
                 }
                 int valorFinal = Integer.parseInt(args[1]);
+                System.out.println("Valores previos:");
+                lista.mostrar();
+                System.out.println("Lista Final:");
                 lista.agregarAlFinal(valorFinal); // agregamos al final el valor
                 lista.mostrar(); // mostramos los resultados
                 break;
@@ -156,9 +163,9 @@ class LinkedList<E> {
             cab = cab.sig;
             return;
         }
-
+        // 1 -> 2 -> 3 -> 5 -> NULL
         Nodo<E> aux = cab;
-        int contador = 0;
+        int contador = 1;
         for (aux = cab; aux != null && contador < posicion - 1; aux = aux.sig, contador++);  
         if (aux == null || aux.sig == null) {
             System.out.println("La posición especificada no existe en la lista.");

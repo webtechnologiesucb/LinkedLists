@@ -2,7 +2,8 @@ import java.util.Iterator;
 
 /*
 4. Escribe un programa que tome dos listas enlazadas y las combine de manera alternada.
-Por ejemplo, si tienes las listas [1, 2, 3] y [4, 5, 6], el resultado debe ser [1, 4, 2, 5, 3, 6].
+Por ejemplo, si tienes las listas [1, 2, 3] y [4, 5, 6],
+el resultado debe ser [1, 4, 2, 5, 3, 6].
  */
 class Nodo<E> {
     E dato;
@@ -41,16 +42,16 @@ class Nodo<E> {
 
     public static ListaEnlazada combinarAlternadamente(ListaEnlazada lista1, ListaEnlazada lista2) {
         ListaEnlazada unificada = new ListaEnlazada();
-        Nodo aux1 = lista1.cab;
-        Nodo aux2 = lista2.cab;
+        Nodo aux1 = lista1.cab; // 1->2->3
+        Nodo aux2 = lista2.cab; // 4->5->6->7
 
         while (aux1 != null || aux2 != null) {
             if (aux1 != null) {
-                unificada.agregar(aux1.dato);
+                unificada.agregar(aux1.dato); // 1->4->2->5->3
                 aux1 = aux1.sig;
             }
             if (aux2 != null) {
-                unificada.agregar(aux2.dato);
+                unificada.agregar(aux2.dato); //1->4->2->5->3->6->7
                 aux2 = aux2.sig;
             }
         }
