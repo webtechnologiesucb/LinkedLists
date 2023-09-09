@@ -1,64 +1,87 @@
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
-public class ArrayListOperaciones {
 
-    static class Lista<T> implements Iterable<T>{
-        T[] data;
-        int size;
-        static int DEFAULT_SIZE = 1000;
+public class ArrayListOperaciones<E> implements Iterable<E> {
+    private ArrayList<E> lista;
 
-        public Lista() {
-            this.data = (T[]) new Object[DEFAULT_SIZE];
-        }
+    public ArrayListOperaciones() {
+        lista = new ArrayList<>();
+    }
 
-        public Lista(T[] data) {
-            this.data = data;
-        }
+    public void agregarElemento(E elemento) {
+        lista.add(elemento);
+    }
 
-        public Lista(T[] data, int size) {
-            this.data = data;
-            this.size = size;
-        }
+    public E obtenerElemento(int indice) {
+        return lista.get(indice);
+    }
 
-        public void add(T element) {
-            this.data[this.size++] = element;
-        }
+    public E modificarElemento(int indice, E valor) {
+        return lista.set(indice, valor);
+    }
 
-        public T get(int index) {
-            return this.data[index];
-        }
+    public E quitarElemento(E valor) {
+        int indice = lista.indexOf(valor);
+        if (indice == -1) return null;
+        else return lista.remove(indice);
+    }
 
-        public int size() {
-            return this.size;
-        }
+    public E quitarElemento(int indice) {
+        return lista.remove(indice);
+    }
 
-        public void remove(int index) {
-            for (int i = index; i < this.size - 1; i++) {
-                this.data[i] = this.data[i + 1];
-            }
-            this.size--;
-        }
+    public int tamaño() {
+        return lista.size();
+    }
 
-        public void insert(T element, int index) {
-            for (int i = this.size; i > index; i--) {
-                this.data[i] = this.data[i - 1];
-            }
-            this.data[index] = element;
-            this.size++;
+    public void ordenar(Comparator<E> comparador) {
+        lista.sort(comparador);
+    }
+
+    public void mostrar(){
+        //Utilizar el iterador personalizado para recorrer la lista
+        for (E elemento : lista)
+            System.out.print(elemento + "\t");
+        System.out.print("\n");
+    }
+    @Override
+    public Iterator<E> iterator() {
+        return new MiIterator();
+    }
+
+    private class MiIterator implements Iterator<E> {
+        private int indiceActual = 0;
+
+        @Override
+        public boolean hasNext() {
+            return indiceActual < lista.size();
         }
 
         @Override
-        public Iterator<T> iterator() {
-            return new Iterator<T>() {
-                @Override
-                public boolean hasNext() {
-                    return false;
-                }
-
-                @Override
-                public T next() {
-                    return null;
-                }
-            };
+        public E next() {
+            if (hasNext()) {
+                E elemento = lista.get(indiceActual);
+                indiceActual++;
+                return elemento;
+            }
+            throw new java.util.NoSuchElementException();
         }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+    }
+
+    public static void main(String[] args) {
+        ArrayListOperaciones<String> miLista = new ArrayListOperaciones<>();
+        miLista.agregarElemento("Uno");
+        miLista.agregarElemento("Dos");
+        miLista.agregarElemento("Tres");
+        miLista.mostrar();
+
+        miLista.ordenar(Comparator.naturalOrder());
+        miLista.mostrar();
     }
 }
