@@ -40,7 +40,6 @@ public class ArrayListOperaciones<E> implements Iterable<E> {
     }
 
     public void mostrar(){
-        //Utilizar el iterador personalizado para recorrer la lista
         for (E elemento : lista)
             System.out.print(elemento + "\t");
         System.out.print("\n");
